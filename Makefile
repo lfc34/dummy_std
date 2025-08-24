@@ -1,4 +1,4 @@
-.PHONY = static
+.PHONY: static shared
 CC = gcc
 AFLAGS = -c -Wall -Wextra -Werror -std=c11 -Iinclude/
 SOFLAGS = -c -fPIC -Wall -Wextra -Werror -std=c11 -Iinclude/
