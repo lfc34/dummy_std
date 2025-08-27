@@ -5,6 +5,7 @@ The goal is to reimplement all C standard library, without using anything except
 
 ## Roadmap
 - <assert.h> - **IMPLEMENTED ✅** 
+- <ctype.h> - **IN PROCESS 🚧**
 - <string.h> - **IMPLEMENTED PARTIALLY ⚠️**
 - <stdlib.n> - **IN PROCESS 🚧**
 
