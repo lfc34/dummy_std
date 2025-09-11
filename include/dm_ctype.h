@@ -1,6 +1,9 @@
 /* Reimplementation of C <ctype.h> */
 /* only works with default "C" locale */
 
+#ifndef DM_CTYPE_H
+#define DM_CTYPE_H
+
 /* checks if character is alphanumerical */
 int
 dm_isalnum(int ch);
@@ -56,3 +59,5 @@ dm_tolower(int ch);
 /* converts lowercase letter into upper case */
 int 
 dm_toupper(int ch);
+
+#endif
