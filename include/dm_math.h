@@ -18,7 +18,7 @@ double factorial(int x);
 // create a quiet nan
 double dm_nan();
 
-// create an inf; 0 for positive, 1 for negative
+// create an inf
 double dm_inf();
 
 int dm_isnan(double x);
@@ -33,7 +33,7 @@ int dm_signbit(double x);
 // return exponential value of x
 double dm_exp(double x);
 
-// TODO TODAY
+// returns the larger from two values
 double dm_fmax(double x, double y);
 
 // return natural log of x

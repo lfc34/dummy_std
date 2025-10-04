@@ -49,7 +49,11 @@ double dm_inf() {
 
 int dm_isnan(double x) {
     const double nan = dm_nan();
-    return (dm_memcmp((void*) &x, (void*)&nan, sizeof(double)));
+    if (dm_memcmp((void*) &x, (void*)&nan, sizeof(double)) == 0) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 int dm_isinf(double x) {
     printf("dm_isinf: x = %lf\n", x);
