@@ -1,5 +1,6 @@
 #include "dm_math.h"
 #include "dm_string.h"
+#include <stdio.h>
 
 // TODO: add checks for nan, -inf and +inf in each func
 
@@ -23,7 +24,7 @@ double factorial(int x) {
         return 1;
     }
     if (x < 0) {
-        return dm_gen_quiet_nan();
+        return dm_nan();
     }
     double res = 1.0f;
     for (int i = 1; i <= x; i++) {
@@ -32,25 +33,29 @@ double factorial(int x) {
     return res;
 }
 
-double dm_gen_quiet_nan() {
-    long long unsigned bits = NAN;
+double dm_nan() {
+    unsigned long long bits = NAN_BITS;
     double nan_val;
     dm_memcpy(&nan_val, &bits, sizeof(nan_val));
     return nan_val;
 }
 
-double dm_gen_inf(int sign) {
-    long long unsigned bits = 0;
+double dm_inf() {
+    unsigned long long bits = INF_BITS;
     double inf;
-    if (sign == 0) {
-        // positive inf
-        bits = INF;
-    } else {
-        // negative inf
-        bits = NEG_INF;
-    }
     dm_memcpy(&inf, &bits, sizeof(inf));
     return inf;
+}
+
+int dm_isnan(double x) {
+    const double nan = dm_nan();
+    return (dm_memcmp((void*) &x, (void*)&nan, sizeof(double)));
+}
+int dm_isinf(double x) {
+    printf("dm_isinf: x = %lf\n", x);
+    if (x == DM_INFINITY) return 1;
+    else if (x == -DM_INFINITY) return -1;
+    else return 0;
 }
 
 double dm_fabs(double x) {
@@ -76,14 +81,26 @@ double dm_exp(double x) {
     return res;
 }
 
+double dm_fmax(double x, double y) {
+    // nan check
+    if (dm_isnan(x)) return y;
+    if (dm_isnan(y)) return x;
+    
+    // inf check
+    if (dm_isinf(x) > 0) return x;
+    if (dm_isinf(y) > 0) return y;
+
+    return (x > y) ? x : y;
+}
+
 // blank until I implement other basic functions
 double dm_log(double x) {
     if (x < 0) {
-        return dm_gen_quiet_nan();
+        return dm_nan();
     } else if (x == 0) {
-        return dm_gen_inf(1);
+        return dm_inf();
     } else if  (x < EPSILON) {
-        return dm_gen_inf(1);
+        return -dm_inf();
     }
     return 0;
 }

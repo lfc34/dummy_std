@@ -7,17 +7,22 @@
 #define EPSILON 1e-9
 
 // IEEE 754 standard
-#define NAN 0x7FF8000000000000ULL
-#define INF 0x7FF000000000000ULL
-#define NEG_INF 0xFFF0000000000000ULL
+#define NAN_BITS 0x7FF8000000000000ULL
+#define INF_BITS 0x7FF0000000000000ULL
+#define NEG_INF_BITS 0xFFF0000000000000ULL
+#define DM_NAN dm_nan()
+#define DM_INFINITY dm_inf()
 
 double factorial(int x);
 
 // create a quiet nan
-double dm_gen_quiet_nan();
+double dm_nan();
 
-// create an inf
-double dm_gen_inf(int sign);
+// create an inf; 0 for positive, 1 for negative
+double dm_inf();
+
+int dm_isnan(double x);
+int dm_isinf(double x);
 
 // return absolute value |x|
 double dm_fabs(double x);
@@ -27,6 +32,9 @@ int dm_signbit(double x);
 
 // return exponential value of x
 double dm_exp(double x);
+
+// TODO TODAY
+double dm_fmax(double x, double y);
 
 // return natural log of x
 double dm_log(double x);
